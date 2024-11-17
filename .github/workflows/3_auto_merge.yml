@@ -13,7 +13,7 @@ jobs:
   auto_merge:
     runs-on: ubuntu-latest
     steps:
-    - name: リモートブランチを確認
+      - name: リモートブランチを確認
         run: git branch -r
         
       - name: リポジトリのクローン
