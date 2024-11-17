@@ -1,0 +1,23 @@
+#name       ワークフローのなまえ
+#on         動作イベント
+#jobs       ジョブの単位
+#runs-on    ジョブを実行するマシン
+#steps      実行されるステップをグループ化
+#uses       ここで指定したアクションが実行される
+#run        プログラムを実行するようにジョブに指示する
+#name       runの手前に書くと名前を付けることができる
+
+name: show_log
+on: workflow_dispatch
+jobs:
+  show_log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "あいうえおを表示"
+        run: echo "あいうえお"
+        
+      - name: "かきくけこを表示"
+        run: echo "かきくけこ"
+        
+      - name: "さしすせそを表示"
+        run: echo "さしすせそ"
