@@ -17,4 +17,4 @@ jobs:
         run: git merge test1
         
       - name: "test2ブランチをマージ"
-      run: git merge test2
+        run: git merge test2
