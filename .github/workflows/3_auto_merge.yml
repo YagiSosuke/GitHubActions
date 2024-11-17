@@ -1,0 +1,20 @@
+#name       ワークフローのなまえ
+#on         動作イベント
+#jobs       ジョブの単位
+#runs-on    ジョブを実行するマシン
+#steps      実行されるステップをグループ化
+#uses       ここで指定したアクションが実行される
+#run        プログラムを実行するようにジョブに指示する
+#name       runの手前に書くと名前を付けることができる
+
+name: 3_auto_merge
+on: workflow_dispatch
+jobs:
+  3_auto_merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "test1ブランチをマージ"
+        run: git merge test1
+        
+      - name: "test2ブランチをマージ"
+      run: git merge test2
