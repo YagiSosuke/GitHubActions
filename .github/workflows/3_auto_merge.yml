@@ -22,5 +22,8 @@ jobs:
       - name: "mainブランチをチェックアウト"
         run: git checkout main
         
+      - name: リモートブランチをフェッチ
+        run: git fetch --all
+        
       - name: "test1ブランチをマージ"
         run: git merge test1
