@@ -7,10 +7,10 @@
 #run        プログラムを実行するようにジョブに指示する
 #name       runの手前に書くと名前を付けることができる
 
-name: 3_auto_merge
+name: auto_merge
 on: workflow_dispatch
 jobs:
-  3_auto_merge:
+  auto_merge:
     runs-on: ubuntu-latest
     steps:
       - name: "test1ブランチをマージ"
