@@ -24,6 +24,10 @@ jobs:
         
       - name: リモートブランチをフェッチ
         run: git fetch --all
+
+
+　　  - name: リモートブランチをローカルにチェックアウト
+    　　run: git fetch origin test1:test1
         
       - name: "test1ブランチをマージ"
-        run: git merge origin/test1
+        run: git merge test1
