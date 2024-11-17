@@ -6,7 +6,7 @@
 #uses       ここで指定したアクションが実行される
 #run        プログラムを実行するようにジョブに指示する
 
-name: learn-github-actions
+name: echo_hello_world
 on: workflow_dispatch
 jobs:
   echo_hello_world:
