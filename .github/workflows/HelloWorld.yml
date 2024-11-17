@@ -7,14 +7,9 @@
 #run        プログラムを実行するようにジョブに指示する
 
 name: learn-github-actions
-on: [push]
+on: workflow_dispatch
 jobs:
-  check-bats-version:
+  echo_hello_world:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+      - run: echo "hello world!!"
