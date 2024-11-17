@@ -26,4 +26,4 @@ jobs:
         run: git fetch --all
         
       - name: "test1ブランチをマージ"
-        run: git merge test1
+        run: git merge origin/test1
