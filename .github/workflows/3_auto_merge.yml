@@ -18,6 +18,11 @@ jobs:
       - name: リポジトリのクローン
         uses: actions/checkout@v4
 
+      - name: 設定 - Gitユーザー名とメールアドレス
+        run: |
+          git config --local user.email "yagikundayo@gmail.com"
+          git config --local user.name "YagiSosuke"
+
       - name: リモートブランチをフェッチ
         run: git fetch --all
           
