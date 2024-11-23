@@ -27,13 +27,5 @@ jobs:
           git checkout main
           git checkout test1
 
-      - name: リモートブランチをローカルにチェックアウト
-        run: |
-          if git branch -r | grep -q "origin/test1"; then
-            git fetch origin test1:test1
-          else
-            echo "リモートにtest1ブランチが存在しません。" && exit 1
-          fi
-
       - name: test1ブランチをマージ
         run: git merge test1
