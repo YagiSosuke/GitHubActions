@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: リポジトリのクローン
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 全ての履歴を取得
 
       - name: 設定 - Gitユーザー名とメールアドレス
         run: |
