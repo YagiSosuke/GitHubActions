@@ -19,13 +19,13 @@ jobs:
       - name: リモートブランチを確認
         run: git branch -r
 
+      - name: リモートブランチをフェッチ
+        run: git fetch --all
+
       - name: mainブランチをチェックアウト
         run: |
           git checkout main
           git checkout test1
-
-      - name: リモートブランチをフェッチ
-        run: git fetch --all
 
       - name: リモートブランチをローカルにチェックアウト
         run: |
