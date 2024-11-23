@@ -21,6 +21,7 @@ jobs:
 
       - name: mainブランチをチェックアウト
         run: git checkout main
+        run: git checkout test1
 
       - name: リモートブランチをフェッチ
         run: git fetch --all
