@@ -33,7 +33,7 @@ jobs:
         run: git checkout main
 
       - name: test1ブランチをマージ
-        run: git merge test1
+        run: git merge test1 --allow-unrelated-histories
         
       - name: 変更をプッシュ
         run: git push origin main
