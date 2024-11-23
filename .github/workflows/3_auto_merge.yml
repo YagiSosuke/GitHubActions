@@ -43,7 +43,7 @@ jobs:
           git pull origin main
 
       - name: test1ブランチをマージ
-        run: git merge test1 --allow-unrelated-histories
+        run: git merge origin/test1
         
       - name: 変更をプッシュ
         run: git push origin main
