@@ -27,15 +27,15 @@ jobs:
 
       - name: リモートブランチをフェッチ
         run: git fetch --all
-          
-      - name: test1ブランチをチェックアウト
-        run: |
-          if git branch -r | grep -q "origin/test1"; then
-            git checkout -b test1 origin/test1
-            git pull origin test1
-          else
-            echo "リモートブランチにtest1ブランチが存在しません" && exit 1
-          fi
+      
+#      - name: test1ブランチをチェックアウト
+#        run: |
+#          if git branch -r | grep -q "origin/test1"; then
+#            git checkout -b test1 origin/test1
+#            git pull origin test1
+#          else
+#            echo "リモートブランチにtest1ブランチが存在しません" && exit 1
+#          fi
 
       - name: mainブランチをチェックアウト
         run: |
