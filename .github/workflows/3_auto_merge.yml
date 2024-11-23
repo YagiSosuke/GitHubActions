@@ -20,8 +20,9 @@ jobs:
         run: git branch -r
 
       - name: mainブランチをチェックアウト
-        run: git checkout main
-        run: git checkout test1
+        run: |
+          git checkout main
+          git checkout test1
 
       - name: リモートブランチをフェッチ
         run: git fetch --all
