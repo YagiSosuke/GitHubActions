@@ -13,7 +13,7 @@ jobs:
   auto_merge:
     runs-on: ubuntu-latest
     permissions:
-      actions: write    #プッシュ権限を与える
+      contents: write    #プッシュ権限を与える
     steps:
       - name: リポジトリのクローン
         uses: actions/checkout@v4
