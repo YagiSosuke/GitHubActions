@@ -28,6 +28,7 @@ jobs:
       - name: リモートブランチをフェッチ
         run: git fetch --all
 
+      #ここから、mainブランチの更新を行います
       - name: mainブランチをチェックアウト
         run: |
           git checkout main
@@ -36,5 +37,30 @@ jobs:
       - name: test1ブランチをマージ
         run: git merge origin/test1
         
+      - name: test2ブランチをマージ
+        run: git merge origin/test2
+        
+      #ここから、test1ブランチの更新を行います
+      - name: test1ブランチをチェックアウト
+        run: |
+          git checkout test1
+          git pull origin test1
+
+      - name: mainブランチをマージ
+        run: git merge main
+        
+      #ここから、test2ブランチの更新を行います
+      - name: test2ブランチをチェックアウト
+        run: |
+          git checkout test2
+          git pull origin test2
+
+      - name: mainブランチをマージ
+        run: git merge main
+
+      
       - name: 変更をプッシュ
-        run: git push origin main
+        run: |
+          git push origin main
+          git push origin test1
+          git push origin test2
