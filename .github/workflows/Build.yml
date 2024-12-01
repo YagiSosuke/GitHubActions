@@ -1,0 +1,55 @@
+#name       ワークフローのなまえ
+#on         動作イベント
+#jobs       ジョブの単位
+#runs-on    ジョブを実行するマシン
+#steps      実行されるステップをグループ化
+#uses       ここで指定したアクションが実行される
+#run        プログラムを実行するようにジョブに指示する
+#name       runの手前に書くと名前を付けることができる
+
+name: auto_merge
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        default: '1.0.0'
+        required: true
+        type: string
+jobs:
+  auto_merge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write    #プッシュ権限を与える
+    steps:
+      - name: リポジトリのクローン
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 全ての履歴を取得
+
+      - name: 設定 - Gitユーザー名とメールアドレス
+        run: |
+          git config --local user.email "yagikundayo@gmail.com"
+          git config --local user.name "YagiSosuke"
+      - name: リモートブランチをフェッチ
+        run: git fetch --all
+
+      - name: 早期return
+        run: exit 0
+
+      #ここから、Build/Developブランチの更新を行います
+      - name: Build/Developブランチをチェックアウト
+        run: |
+          git checkout Build/Develop
+          git pull origin Build/Develop
+      - name: mainブランチをマージ
+        run: git merge origin/main
+
+        #bundleVersionを更新
+      - name: 変更をプッシュ
+        run: |
+          # ProjectSettingsファイル名 (変更するファイルのパスに置き換える)
+          filePath="My project/ProjectSettings/ProjectSettings.asset"
+        
+      - name: 変更をプッシュ
+        run: |
+          git push origin Build/Develop
