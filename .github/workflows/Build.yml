@@ -53,12 +53,13 @@ jobs:
           #新しいバージョン
           newVersion="${{github.event.inputs.version}}"
 
-          #ファイル置き換え
+          #バージョン書き換え
           yq '.bundleVersion="$newVersion"' -i "$filePath"
 
        # 変更をコミット
       - name: 変更をコミット
-        run:
+        run: |
+          git add "$filePath"
           git commit -m "ver $newVersion"
         
       - name: 変更をプッシュ
