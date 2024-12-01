@@ -9,7 +9,20 @@
 
 name: merge_build_branch
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      Develop:
+        type: boolean
+        required: true
+        default: false
+      Develop2:
+        type: boolean
+        required: true
+        default: false
+      QA:
+        type: boolean
+        required: true
+        default: false
 
 env:
   filePath: My project/ProjectSettings/ProjectSettings.asset
@@ -37,10 +50,16 @@ jobs:
         run: |
           branches=("Build/Develop" "Build/Develop2" "Build/QA")
           mergeBranches=("main" "main" "qa")
+          isExecutions=(${{inputs.Develop}} ${{inputs.Develop2}} ${{inputs.QA}})
           length=${#branches[@]}
           for ((i=0; i<$length; i++)); do
             branch=${branches[$i]}
             mergeBranch=${mergeBranches[$i]}
+            isExecution=${isExecutions[$i]}
+            if ["$isExecution == false"]; then
+              continue
+            fi
+            
             echo "$branch ブランチのビルド"
             
             #ブランチをチェックアウト
