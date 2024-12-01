@@ -11,15 +11,15 @@ name: merge_build_branch
 on:
   workflow_dispatch:
     inputs:
-      Build/Develop:
+      Develop:
         type: boolean
         required: true
         default: false
-      Build/Develop2:
+      Develop2:
         type: boolean
         required: true
         default: false
-      Build/QA:
+      QA:
         type: boolean
         required: true
         default: false
@@ -50,7 +50,7 @@ jobs:
         run: |
           branches=("Build/Develop" "Build/Develop2" "Build/QA")
           mergeBranches=("main" "main" "qa")
-          isExecutions=(${{inputs.Build/Develop}} ${{inputs.Build/Develop2}} ${{inputs.Build/QA}})
+          isExecutions=(${{inputs.Develop}} ${{inputs.Develop2}} ${{inputs.QA}})
           length=${#branches[@]}
           for ((i=0; i<$length; i++)); do
             branch=${branches[$i]}
