@@ -1,0 +1,77 @@
+#name       ワークフローのなまえ
+#on         動作イベント
+#jobs       ジョブの単位
+#runs-on    ジョブを実行するマシン
+#steps      実行されるステップをグループ化
+#uses       ここで指定したアクションが実行される
+#run        プログラムを実行するようにジョブに指示する
+#name       runの手前に書くと名前を付けることができる
+
+name: merge_build_branch
+on:
+  workflow_dispatch
+
+env:
+  filePath: My project/ProjectSettings/ProjectSettings.asset
+
+jobs:
+  merge_build_branch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write    #プッシュ権限を与える
+    steps:
+      - name: リポジトリのクローン
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 全ての履歴を取得
+
+      - name: 設定 - Gitユーザー名とメールアドレス
+        run: |
+          git config --local user.email "yagikundayo@gmail.com"
+          git config --local user.name "YagiSosuke"
+
+      - name: リモートブランチをフェッチ
+        run: git fetch --all
+
+      - name: 複数ブランチに処理を実行
+        run: |
+          branches=("Build/Develop" "Build/Develop2" "Build/QA")
+          mergeBranches=("main" "main" "qa")
+          length=${#branches[@]}
+          for ((i=0; i<$length; i++)); do
+            branch=${branches[$i]}
+            mergeBranch=${mergeBranches[$i]}
+            
+            #ブランチをチェックアウト
+            git checkout $branch
+            git pull origin $branch
+                
+            #mergeBranchをマージ
+            git merge $mergeBranch
+      
+            #bundleVersionを更新
+            #現在のバージョン
+            currentVersion=$(yq '.PlayerSettings.bundleVersion' "$filePath")
+      
+            #バージョン番号を分割 (例: 1.0.0 → major=1, minor=0, patch=0)
+            IFS='.' read -r major minor patch <<< "$currentVersion"
+              
+            #新しいバージョン
+            patch=$((patch+1))
+            newVersion="$major.$minor.$patch"
+  
+            #sedでバージョンを書き換え
+            sed -i "s/bundleVersion: .*/bundleVersion: $newVersion/" "$filePath"
+            echo "Updated file content:"
+            cat "$filePath"
+  
+            #バージョン番号を他のステップで再利用できるようにする
+            echo "newVersion=$newVersion" >> $GITHUB_ENV
+            
+            #変更をコミット
+            git add "$filePath"
+            git commit -m "ver $newVersion"
+              
+            #変更をプッシュ
+            git push origin $branch
+          done
