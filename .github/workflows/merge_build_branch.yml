@@ -56,7 +56,7 @@ jobs:
             branch=${branches[$i]}
             mergeBranch=${mergeBranches[$i]}
             isExecution=${isExecutions[$i]}
-            if ["$isExecution == false"]; then
+            if [ "$isExecution" == "false" ]; then
               continue
             fi
             
