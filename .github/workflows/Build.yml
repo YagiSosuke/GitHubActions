@@ -15,6 +15,10 @@ on:
         default: '1.0.0'
         required: true
         type: string
+
+env:
+  filePath: My project/ProjectSettings/ProjectSettings.asset
+
 jobs:
   auto_merge:
     runs-on: ubuntu-latest
@@ -48,7 +52,6 @@ jobs:
       - name: bundleVersionを更新
         run: |
           # ProjectSettingsファイル名 (変更するファイルのパスに置き換える)
-          filePath="My project/ProjectSettings/ProjectSettings.asset"
 
           #新しいバージョン
           newVersion="${{github.event.inputs.version}}"
