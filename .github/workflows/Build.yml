@@ -58,6 +58,8 @@ jobs:
 
           # sedでバージョンを書き換え
           sed -i "s/bundleVersion: \".*\"/bundleVersion: \"$newVersion\"/" "$filePath"
+          echo "Updated file content:"
+          cat "$filePath"
 
           #バージョン番号を他のステップで再利用できるようにする
           echo "newVersion=$newVersion" >> $GITHUB_ENV
