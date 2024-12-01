@@ -63,7 +63,7 @@ jobs:
       - name: 変更をコミット
         run: |
           git add "$filePath"
-          git commit -m "ver \"$newVersion\""
+          git commit -m "ver $newVersion"
         
       - name: 変更をプッシュ
         run:
