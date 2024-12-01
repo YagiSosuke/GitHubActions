@@ -44,8 +44,8 @@ jobs:
             echo "$branch ブランチのビルド"
             
             #ブランチをチェックアウト
-            #git checkout $branch
-            #git pull origin $branch
+            git checkout $branch
+            git pull origin $branch
                 
             #mergeBranchをマージ
             git merge origin/$mergeBranch
