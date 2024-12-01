@@ -37,7 +37,7 @@ jobs:
         run: |
           branches=("Build/Develop" "Build/Develop2" "Build/QA")
           mergeBranches=("main" "main" "qa")
-          length=$(#branches[@])
+          length=${#branches[@]}
           for ((i=0; i<$length; i++)); do
             branch=${branches[$i]}
             mergeBranch=${mergeBranches[$i]}
