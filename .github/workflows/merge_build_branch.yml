@@ -9,7 +9,20 @@
 
 name: merge_build_branch
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      Develop:
+        type: boolean
+        required: true
+        default: false
+      Develop2:
+        type: boolean
+        required: true
+        default: false
+      QA:
+        type: boolean
+        required: true
+        default: false
 
 env:
   filePath: My project/ProjectSettings/ProjectSettings.asset
@@ -37,17 +50,24 @@ jobs:
         run: |
           branches=("Build/Develop" "Build/Develop2" "Build/QA")
           mergeBranches=("main" "main" "qa")
+          isExecutions=(${{inputs.Develop}} ${{inputs.Develop2}} ${{inputs.QA}})
           length=${#branches[@]}
           for ((i=0; i<$length; i++)); do
             branch=${branches[$i]}
             mergeBranch=${mergeBranches[$i]}
+            isExecution=${isExecutions[$i]}
+            if [ "$isExecution" == "false" ]; then
+              continue
+            fi
+            
+            echo "$branch ブランチのビルド"
             
             #ブランチをチェックアウト
             git checkout $branch
             git pull origin $branch
                 
             #mergeBranchをマージ
-            git merge mergeBranch
+            git merge origin/$mergeBranch
       
             #bundleVersionを更新
             #現在のバージョン
@@ -62,8 +82,6 @@ jobs:
   
             #sedでバージョンを書き換え
             sed -i "s/bundleVersion: .*/bundleVersion: $newVersion/" "$filePath"
-            echo "Updated file content:"
-            cat "$filePath"
   
             #バージョン番号を他のステップで再利用できるようにする
             echo "newVersion=$newVersion" >> $GITHUB_ENV
