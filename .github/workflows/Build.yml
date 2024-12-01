@@ -62,7 +62,7 @@ jobs:
           newVersion="$major.$minor.$patch"
 
           #バージョン書き換え
-          yq ".PlayerSettings.bundleVersion=\"$newVersion\"" -i "$filePath" --inplace --unwrapScalar=false "$filePath"
+          yq ".PlayerSettings.bundleVersion=\"$newVersion\"" -i "$filePath"
 
           #バージョン番号を他のステップで再利用できるようにする
           echo "newVersion=$newVersion" >> $GITHUB_ENV
