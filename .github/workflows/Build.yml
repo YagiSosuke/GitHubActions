@@ -7,7 +7,7 @@
 #run        プログラムを実行するようにジョブに指示する
 #name       runの手前に書くと名前を付けることができる
 
-name: auto_merge
+name: auto_build_setting
 on:
   workflow_dispatch:
     inputs:
@@ -45,10 +45,24 @@ jobs:
         run: git merge origin/main
 
         #bundleVersionを更新
-      - name: 変更をプッシュ
+      - name: bundleVersionを更新
         run: |
           # ProjectSettingsファイル名 (変更するファイルのパスに置き換える)
           filePath="My project/ProjectSettings/ProjectSettings.asset"
+
+          #新しいバージョン
+          newVersion="${{github.event.inputs.version}}"
+
+          #ファイル置き換え
+          yq '.bundleVersion="$newVersion"' -i filePath
+
+       # 変更をコミット
+      - name: 変更をコミット
+        run: |
+          #git config user.name "github-actions[bot]"
+          #git config user.email "github-actions[bot]@users.noreply.github.com"
+          #git add .
+          git commit -m "ver${{ github.event.inputs.new_version }}"
         
       - name: 変更をプッシュ
         run: |
