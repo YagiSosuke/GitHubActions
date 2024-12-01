@@ -44,11 +44,11 @@ jobs:
             echo "$branch ブランチのビルド"
             
             #ブランチをチェックアウト
-            git checkout $branch
-            git pull origin $branch
+            #git checkout $branch
+            #git pull origin $branch
                 
             #mergeBranchをマージ
-            git merge $mergeBranch
+            git merge origin/$mergeBranch
       
             #bundleVersionを更新
             #現在のバージョン
