@@ -47,7 +47,7 @@ jobs:
             git pull origin $branch
                 
             #mergeBranchをマージ
-            git merge mergeBranch
+            git merge $mergeBranch
       
             #bundleVersionを更新
             #現在のバージョン
