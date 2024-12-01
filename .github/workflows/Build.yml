@@ -57,7 +57,7 @@ jobs:
           newVersion="${{github.event.inputs.version}}"
 
           #バージョン書き換え
-          yq ".bundleVersion=\"$newVersion\"" -i "$filePath"
+          yq ".PlayerSettings.bundleVersion=\"$newVersion\"" -i "$filePath"
 
        # 変更をコミット
       - name: 変更をコミット
