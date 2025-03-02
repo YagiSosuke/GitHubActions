@@ -32,20 +32,20 @@ jobs:
         run: |
           mapfile -t branches < .github/config/dev_version_manage_branch_names.txt
           echo "::set-output name=branches::$branches"
-          length=$(#branches[@])
+          length=${#branches[@]}
 
-          #for ((i=1; i<$length; i++)); do
-          i=1
-          branch=${branches[i]}
-          beforeVersion=${branches[i-1]}
-
-          echo "ブランチのマージ [$beforeVersion] -> [$branch]"
-          
-          #ブランチをチェックアウト
-          git checkout $branch
-          git pull origin $branch
-              
-          #beforeVersionをマージ
-          git merge $beforeVersion
-          git push origin $branch
-          #done
+          for ((i=1; i<$length; i++)); do
+            i=1
+            branch=${branches[i]}
+            beforeVersion=${branches[i-1]}
+  
+            echo "ブランチのマージ [$beforeVersion] -> [$branch]"
+            
+            #ブランチをチェックアウト
+            git checkout $branch
+            git pull origin $branch
+                
+            #beforeVersionをマージ
+            git merge $beforeVersion
+            git push origin $branch
+          done
