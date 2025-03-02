@@ -30,7 +30,7 @@ jobs:
       - name: バージョンファイル名ファイルから操作するブランチ名を首都tく
         id: branches
         run: |
-          branches=$(cat .github/config/dev_version_manage_branch_names.txt)
+          mapfile -t branches < .github/config/dev_version_manage_branch_names.txt
           echo "::set-output name=branches::$branches"
           length=$(#branches[@])
 
