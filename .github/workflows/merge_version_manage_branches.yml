@@ -30,5 +30,21 @@ jobs:
       - name: バージョンファイル名ファイルから操作するブランチ名を首都tく
         id: branches
         run: |
-          BRANCH_LIST=$(cat .github/config/dev_version_manage_branch_names.txt)
-          echo "::set-output name=branch_list::$BRANCH_LIST"
+          branches=$(cat .github/config/dev_version_manage_branch_names.txt)
+          echo "::set-output name=branches::$branches"
+          length=$(#branches[@])
+
+          for ((i=1; i<$length; i++)); do
+            branch=${branches[i]}
+            beforeVersion=${branches[i-1]}
+
+            echo "ブランチのマージ [$beforeVersion] -> [$branch]"
+            
+            #ブランチをチェックアウト
+            git checkout $branch
+            git pull origin $branch
+                
+            #beforeVersionをマージ
+            git merge $beforeVersion
+            git push origin $branch
+          done
