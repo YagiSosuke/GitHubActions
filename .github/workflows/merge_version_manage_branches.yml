@@ -35,7 +35,6 @@ jobs:
           length=${#branches[@]}
 
           for ((i=1; i<$length; i++)); do
-            i=1
             branch=${branches[i]}
             beforeVersion=${branches[i-1]}
   
@@ -46,6 +45,6 @@ jobs:
             git pull origin $branch
                 
             #beforeVersionをマージ
-            git merge $beforeVersion
+            git merge origin/$beforeVersion
             git push origin $branch
           done
